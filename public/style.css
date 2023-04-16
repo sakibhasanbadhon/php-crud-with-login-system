@@ -1,0 +1,18 @@
+
+.list-th tr th{
+    text-align: center;
+    background-color: rgb(76, 156, 202);
+}
+
+.list-th tr th:nth-child(4) {
+    width: 20%;
+    
+  }
+
+
+.list-th tr th:nth-child(6) {
+    width: 20%;
+    
+  }
+  
+
