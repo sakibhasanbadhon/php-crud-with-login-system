@@ -71,10 +71,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!$res) {
       
-    $text ="wrong user password";
+        $text = "<p style='background-color: #e33f3f;width:200px' class='p-2 px-3 text-white d-blog w-100'> Wrong User Password </p>";
 
     }else{
-      $text = "<p style='background-color: green;width:200px' class='p-2 px-3 text-white d-blog w-100'> Login Successful </p>";
+      $text = "<p style='background-color: #008000d1;width:200px' class='p-2 px-3 text-white d-blog w-100'> Login Successful </p>";
 
       session::set("login",true);
       echo "<script> sakib(); </script>";
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="row justify-content-center">
             
             <div class="col-sm-6 border p-5" style="box-shadow: 0px 1px 20px 0px #c5c1c4bd;">
-            <div> <?php echo $text; ?></div>
+            <div> <?php echo $text; ?></div>  <!--  show alert message -->
                 <form method="post" action="" id="form1">
                     <h3>Login Form</h3>
                     <div class="form-group py-3">

@@ -110,7 +110,7 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <a href="login.php" class="pt-2" class="text-start" >Login</a>
-                        <button type="submit" name="submit" class="btn btn-primary text-right">Login</button>
+                        <button type="submit" name="submit" class="btn btn-primary text-right">Signup</button>
                     </div>
                 </form>
             </div>

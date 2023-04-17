@@ -2,7 +2,7 @@
     include('include/header.php');
 
 
-
+$text = '';
 
 if (isset($_POST["submit"])) 
 { 
@@ -15,7 +15,9 @@ if (isset($_POST["submit"]))
     $img_name = $_FILES['img']['name'];
     $img_tname = $_FILES['img']['tmp_name'];
     $img_size = $_FILES['img']['size'];
-
+    $name = rand(1234125,5619898);
+    $ext = strtolower(substr(strrchr($img_name, '.'), 1)); //Get extension
+    $img_name = $name . '.' . $ext;
 
 
 	if (empty($blog_title)||empty($sub_title)||empty($textarea)||empty($img_name))
@@ -23,11 +25,7 @@ if (isset($_POST["submit"]))
 		echo "<script> alert('empty Not alowed'); </script>";
 	}
     else{
-
-        if (file_exists($img_name)) {
-            $exist = "Sorry, file already exists.";
-            $uploadOk = 0;
-          }else {
+    
             $y = move_uploaded_file($img_tname,"public/img/$img_name");
 
             if ($y == true) 
@@ -36,7 +34,7 @@ if (isset($_POST["submit"]))
                 $x = $db->insert($x);
 
                 if ($x){
-                    echo "<script> alert('Data Save Successfull'); </script>";
+                    $text = "<p style='background-color: #008000d1;width:200px' class='p-2 px-3 text-white d-blog w-100'> Blog save Successful </p>";
                     // echo "<script> log(); </script>";
                 }else{
                     echo "insert faild";
@@ -44,7 +42,7 @@ if (isset($_POST["submit"]))
             
             }
 
-          }
+          
           
 		
 
@@ -65,6 +63,7 @@ if (isset($_POST["submit"]))
         </h4>
     </div>
     <div class="card-body">
+        <div> <?php echo $text; ?></div>  <!--  show alert message -->
         <form action="" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-sm-8">

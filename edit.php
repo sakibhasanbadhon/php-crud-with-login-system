@@ -12,7 +12,7 @@
 
 
 
-
+    $text = '';
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 		$blog_title = $db->validate($_POST['blog_title']);
@@ -25,40 +25,18 @@
 		$img_tname = $_FILES['img']['tmp_name'];
 		$img_size = $_FILES['img']['size'];
 
-		$permit = array("jpg","jpeg","png");
-		$x = explode('.', $img_name);
-		$x = strtolower(end($x));
+        $name = rand(1213145,5681498);
+        $ext = strtolower(substr(strrchr($img_name, '.'), 1)); //Get extension
+        $img_name = $name . '.' . $ext;
 
 
-	if (empty($blog_title)||empty($sub_title)||empty($textarea)){
+	if (empty($blog_title)||empty($sub_title)||empty($textarea)||empty($img_name)){
 	
-		echo "<script> alert('empty Not alowed'); </script>";
+        $text = "<p style='background-color: #008000d1;width:200px' class='p-2 px-3 text-white d-blog w-100'> empty not allow </p>";
+
 	
 
-}else{
-
-if (empty($img_name)) {
-
- $edit = "UPDATE post
- 			SET
-                blog_title='$blog_title',
-                sub_title='$sub_title',
-                textarea='$textarea',
- 				img='$img_name',
- 				
- 				WHERE id='$id'";
-
- 				$result = $db->edit($edit);
-
-	    if ($result) {
-	        echo "<script> alert('Update without image'); </script>";
-	        echo "<script> window.location='index.php'; </script>";	
-
-	    }else{
-	        echo "insert faild";
-	    }
-	
-}else{
+}
 	$y = move_uploaded_file($img_tname,"public/img/$img_name");
 	if ($y == true) {
 
@@ -73,11 +51,12 @@ if (empty($img_name)) {
  				$result = $db->edit($edit);
 
 	    if ($result) {
-	        echo "<script> alert('Update with img'); </script>";
+            $text = "<p style='background-color: #008000d1;width:200px' class='p-2 px-3 text-white d-blog w-100'> Blog edit Successful </p>";
+
 	        echo "<script> window.location='index.php'; </script>";	
 
 	    }else{
-	        echo "insert faild";
+	        echo "insert fail";
 	    }
 
 
@@ -86,10 +65,7 @@ if (empty($img_name)) {
 
 }
 
-	}
 
-
-	}
 
  ?>
 
@@ -98,16 +74,16 @@ if (empty($img_name)) {
 
 <?php 
 
-// $qr = "select * from post where id='$id'";
+$qr = "select * from post where id='$id'";
 
-// $res = $db->read($qr);
+$res = $db->read($qr);
 
-// if ($res) {
+if ($res) {
 	
-// 	$a = $res->fetch_assoc();
+	$a = $res->fetch_assoc();
 
 
-// }
+}
 
 
 ?>
@@ -122,24 +98,25 @@ if (empty($img_name)) {
         </h4>
     </div>
     <div class="card-body">
+    <div> <?php echo $text; ?></div>  <!--  show alert message -->
         <form method="POST" enctype="multipart/form-data">
 
             <div class="row">
                 <div class="col-sm-8">
                     <div class="mb-3 py-2">
                         <strong><label for="blog-title" class="form-label">Blog Title</label></strong>
-                        <input type="text"value="" name="blog_title" class="form-control p-3" id="blog-title" >
+                        <input type="text" value="<?php echo $a['blog_title']?>" name="blog_title" class="form-control p-3" id="blog-title" >
                     </div>
 
 
                     <div class="mb-3 py-2">
                         <strong><label for="sub-title" class="form-label">Blog sub title</label></strong>
-                        <input type="text" value="" name="sub_title" class="form-control p-3" id="sub-title">
+                        <input type="text" value="<?php echo $a['sub_title']?>" name="sub_title" class="form-control p-3" id="sub-title">
                     </div>
 
                     <div class="form-outline mb-3 py-2">
                         <strong><label class="form-label" for="textAreaExample">Description</label></strong>
-                        <textarea class="form-control" value="sakib" name="textarea" id="textAreaExample1" rows="6"> </textarea>                        
+                        <textarea class="form-control" value="" name="textarea" id="textAreaExample1" rows="6"> <?php echo $a['textarea']?> </textarea>                        
                     </div>
                 </div>
 
@@ -149,7 +126,7 @@ if (empty($img_name)) {
                         <input type="file" name="img" oninput="pic.src=window.URL.createObjectURL(this.files[0])" class="form-control p-3" id="phone">
                     </div>
 
-                    <img src="public/img/" id="pic">
+                    <img src="public/img/<?php echo $a['img']?>" id="pic">
 
                     <!-- <div class="md-3 py-2">
                         <strong><label for="status" class="form-label"> Status</label></strong>

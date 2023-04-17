@@ -1,7 +1,4 @@
-           <!-- END PAGE CONTENT-->
-           <footer class="page-footer">
-               <p>sakib Hasan</p>
-            </footer>
+           
         </div>
     </div>
     <!-- BEGIN THEME CONFIG PANEL-->
